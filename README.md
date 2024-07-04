@@ -54,3 +54,8 @@ docker exec <file/command_wanna_run> <container_name>
 ## Other docker commands
 
 1. KILL IT 🔪💀
+```
+docker kill <container_id>
+```
+
+2.
