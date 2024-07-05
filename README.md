@@ -8,7 +8,27 @@ Docker
 - [Other docker commands](#other-docker-commands)
 - [Docker hub](#docker-hub)
 - [Docker volumes](#docker-volumes)
+
 - [Docker Networks](#docker-networks)
+  - [Bridge networks](#bridge-network)
+  - [Host network](#host-network)
+  - [None](#none)
+
+- [Sources](#sources)
+
+
+# Installing docker
+```
+# for debian/ubuntu users
+sudo apt update
+sudo apt install docker.io
+
+# for frdora users
+sudo dnf install docker
+
+# for arch users
+sudo pacman -S docker
+```
 
 ## Basic docker commands
 
@@ -23,8 +43,8 @@ docker ps
 
 docker ps -a
 ```
-- -a  -->  to get all the running containers
-- -q  -->  to get just the container id
+- ```-a```  -->  to get all the running containers
+- ```-q```  -->  to get just the container id
 
 3. Stopping and Removing 🛑
 ```
@@ -69,7 +89,7 @@ docker exec [file/command_wanna_run] [container_name]
 docker kill [container_id]
 ```
 
-2. Logs
+2. Logs 📃
 ```
 docker logs [container_id]
 ```
@@ -129,14 +149,74 @@ docker volume prune   # to remove all unuced volumes
 
 Docker Networks
 =====
+
+1. Creating network
+```
+docker network create [network_name]
+```
+
+2. Connect
+```
+docker network connect [network_name] [container_name]
+```
+
+3. Disconnect
+```
+docker network disconect [network_name] [container_name]
+```
+2. List & Inspect
+```
+docker network ls
+
+docker inspect [network_name]
+```
+
+3. Delete network
+```
+docker network rm [network_name]
+
+doceker network prune    #delete all unused network
+```
+
+
 ## Default networks
-1. Bridge network (default)
-2. Host network
-3. None
+1. [Bridge networks](#bridge-network)
+2. [Host network](#host-network)
+3. [None](#none)
 
-## 1. Bridge Network
+## Other networks
+4. macvlan
+5. ipvlan
+6. overlay   
 
+(There are other possible P&C too....)
 
+## Parameters (flags)
+- ```--subnet 172.76.0.0/16``` --> to define subnet
+- ```--gateway 172.76.0.1/16``` --> to define the gateway of the network
+- ```-o parent=[network_interface]``` --> to define the physical network interface
 
+### Bridge network
+It's the default one no need for any flags.
 
+### User-Defined Bridge Network
+```
+docker network create [network_name]
+docker run --network [network_name] [container_id] [image_name]
+```
 
+### Host network
+```
+docker run --network host [container_id] [image_name]
+```
+
+### None
+```
+docker run --network none [container_id] [image_name]
+```
+----
+
+## Sources
+1. https://docs.docker.com/
+2. https://dockerlabs.collabnix.com/
+3. https://www.docker.com/blog/
