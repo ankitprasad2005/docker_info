@@ -23,13 +23,16 @@ Docker
 sudo apt update
 sudo apt install docker.io
 
-# for frdora users
+# for fedora users
 sudo dnf install docker
 
 # for arch users
 sudo pacman -S docker
 ```
 
+```
+sudo systemctl enable --now docker.service
+```
 ## Basic docker commands
 
 1. HELP 🆘
