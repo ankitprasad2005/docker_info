@@ -33,6 +33,13 @@ sudo pacman -S docker
 ```
 sudo systemctl enable --now docker.service
 ```
+
+For adding user to docker group
+```
+sudo usermod -aG docker $USER
+```
+
+
 ## Basic docker commands
 
 1. HELP 🆘
