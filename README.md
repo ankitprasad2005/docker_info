@@ -2,6 +2,14 @@ Docker
 =====
 
 
+## Index
+- [Basic docker commands](#Basic-docker-commands)
+- [Building and running image](#building-and-running-image)
+- [Other docker commands](#other-docker-commands)
+- [Docker hub](#docker-hub)
+- [Docker volumes](#docker-volumes)
+- [Docker Networks](#docker-networks)
+
 ## Basic docker commands
 
 1. HELP 🆘
@@ -15,8 +23,8 @@ docker ps
 
 docker ps -a
 ```
-- -a  --]  to get all the running containers
-- -q  --]  to get just the container id
+- -a  -->  to get all the running containers
+- -q  -->  to get just the container id
 
 3. Stopping and Removing 🛑
 ```
@@ -119,7 +127,9 @@ docker volume prune   # to remove all unuced volumes
 ----
 
 
-# Default networks
+Docker Networks
+=====
+## Default networks
 1. Bridge network (default)
 2. Host network
 3. None
