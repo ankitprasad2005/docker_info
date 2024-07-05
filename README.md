@@ -145,7 +145,7 @@ docker run -v "[host_directry]":[volume_name] [docker_image]
 ```
 docker volume rm [volume_name]
 
-docker volume prune   # to remove all unuced volumes
+docker volume prune   # to remove all unused volumes
 ```
 ----
 
