@@ -81,9 +81,9 @@ docker build -t [image_name] [dir_of_Dockerfile]
 docker run --nane [container_name] [image_name]
 ```
 
-- can add **-rm** for stooping and removing docker as u exit
-- can add **-d** for detaching it from terminal after running (if ur using default bridge network)
-- add **-p [host_port]:[docker_port]** for mapping a specific docker port to host port
+- can add ```-rm``` for stooping and removing docker as u exit
+- can add ```-d``` for detaching it from terminal after running (if ur using default bridge network)
+- add ```-p [host_port]:[docker_port]``` for mapping a specific docker port to host port
 
 3. For executing something inside docker image 🖱️
 ```
