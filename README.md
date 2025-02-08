@@ -1,6 +1,7 @@
 Docker
 =====
 
+----
 
 ## Index
 - [Basic docker commands](#Basic-docker-commands)
@@ -20,6 +21,7 @@ Docker
 
 - [Sources](#sources)
 
+----
 
 # Installing docker
 ```bash
@@ -69,6 +71,7 @@ For adding user to docker group
 sudo usermod -aG docker $USER
 ```
 
+----
 
 ## Basic docker commands
 
@@ -96,6 +99,7 @@ docker rm [docker_id]
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
+
 ----
 
 
@@ -119,6 +123,7 @@ docker run --nane [container_name] [image_name]
 ```bash
 docker exec [file/command_wanna_run] [container_name]
 ```
+
 ----
 
 
@@ -133,6 +138,7 @@ docker kill [container_id]
 ```bash
 docker logs [container_id]
 ```
+
 ----
 
 
@@ -155,6 +161,7 @@ docker tag [image_id] [image_name]:[tag]
 ```bash
 docker push [image_name]:[tag]    # default tag is "latest"
 ```
+
 ----
 
 
@@ -184,6 +191,7 @@ docker volume rm [volume_name]
 
 docker volume prune   # to remove all unused volumes
 ```
+
 ----
 
 
@@ -254,6 +262,7 @@ docker run --network host [container_id] [image_name]
 ```bash
 docker run --network none [container_id] [image_name]
 ```
+
 ----
 
 
@@ -294,6 +303,7 @@ services:
 ```
 
 ----
+
 ## Dockerfile
 Common tags:
 - `FROM`    --> Base image
@@ -303,6 +313,7 @@ Common tags:
 - `CMD`     --> run the final service (should not have a terminatig shell)
 
 ----
+
 ## Docker Compose
 Common paramaters:
 
