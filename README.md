@@ -15,6 +15,8 @@ Docker
   - [None](#none)
 
 - [Docker Web-Interface](#docker-web-interface)
+- [Dockerfile](#dockerfile)
+- [Docker compose](#docker-compose)
 
 - [Sources](#sources)
 
@@ -290,6 +292,39 @@ services:
     restart: always
 
 ```
+
+----
+## Dockerfile
+Common tags:
+- `FROM`    --> Base image
+- `COPY`    --> Commands to run
+- `WORKDIR` --> current working dir in the container
+- `EXPOSE`  --> expose the mentioned port
+- `CMD`     --> run the final service (should not have a terminatig shell)
+
+----
+## Docker Compose
+Common paramaters:
+
+```yaml
+- service
+  - [service-name]
+    - image: [image_name]
+    - container_name: [any_name_for_container]
+    - hostname: [hostname]
+    - user: [GID]:[UID]
+    # - env_file:
+    #   - [.env_location]
+    - environment:
+      - [parameter]=[value]
+    - volumes:
+      - [host_location]\:[container_location]
+    - ports:
+      - [host_port]\:[container_port]
+    - restart: [always, unless-stopped, ....]
+```
+
+----
 
 ## Sources
 1. https://docs.docker.com/
