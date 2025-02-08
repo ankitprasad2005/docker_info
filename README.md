@@ -14,7 +14,7 @@ Docker
   - [Host network](#host-network)
   - [None](#none)
 
-- [Docker Web-Interface](#docker-web-interface)
+- [Docker Web-Interface (portainer-ce)](#docker-web-interface)
 - [Dockerfile](#dockerfile)
 - [Docker compose](#docker-compose)
 
