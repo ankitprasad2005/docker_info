@@ -14,11 +14,39 @@ Docker
   - [Host network](#host-network)
   - [None](#none)
 
+- [Docker Web-Interface](#docker-web-interface)
+
 - [Sources](#sources)
 
 
 # Installing docker
+```bash
+# Remove previous installs
+for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+# Install docker
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
 ```
+
+***Pls dont use this***
+
+```bash
+## PLS DONT USE THS
 # for debian/ubuntu users
 sudo apt update
 sudo apt install docker.io
@@ -29,13 +57,13 @@ sudo dnf install docker
 # for arch users
 sudo pacman -S docker
 ```
-
-```
+Running docker daemon
+```bash## PLS DONT USE THS
 sudo systemctl enable --now docker.service
 ```
 
 For adding user to docker group
-```
+```bash
 sudo usermod -aG docker $USER
 ```
 
@@ -43,12 +71,12 @@ sudo usermod -aG docker $USER
 ## Basic docker commands
 
 1. HELP 🆘
-```
+```bash
 docker help
 ```
 
 2. Current running docker processes (containers) 🏃
-```
+```bash
 docker ps
 
 docker ps -a
@@ -57,12 +85,12 @@ docker ps -a
 - ```-q```  -->  to get just the container id
 
 3. Stopping and Removing 🛑
-```
+```bash
 docker stop [container_id]
 docker rm [docker_id]
 ``` 
 
-```
+```bash
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
@@ -72,12 +100,12 @@ docker rm $(docker ps -a -q)
 ## Building and running image
 
 1. For building docker image 🏗️
-```
+```bash
 docker build -t [image_name] [dir_of_Dockerfile]
 ```
 
 2. For creating & running docker image 🏃
-```
+```bash
 docker run --nane [container_name] [image_name]
 ```
 
@@ -86,7 +114,7 @@ docker run --nane [container_name] [image_name]
 - add ```-p [host_port]:[docker_port]``` for mapping a specific docker port to host port
 
 3. For executing something inside docker image 🖱️
-```
+```bash
 docker exec [file/command_wanna_run] [container_name]
 ```
 ----
@@ -95,12 +123,12 @@ docker exec [file/command_wanna_run] [container_name]
 ## Other docker commands
 
 1. KILL IT 🔪💀
-```
+```bash
 docker kill [container_id]
 ```
 
 2. Logs 📃
-```
+```bash
 docker logs [container_id]
 ```
 ----
@@ -108,21 +136,21 @@ docker logs [container_id]
 
 ## Docker hub
 1. Pull
-```
+```bash
 docker pull [image_name]:[tag]
-````
+```
 - list of docker image
-    ```
+    ```bash
     docker image ls
     ```
 
 2. Tag
-```
+```bash
 docker tag [image_id] [image_name]:[tag]
 ```
 
 3. Push
-```
+```bash
 docker push [image_name]:[tag]    # default tag is "latest"
 ```
 ----
@@ -130,17 +158,17 @@ docker push [image_name]:[tag]    # default tag is "latest"
 
 ## Docker volumes
 1. create
-```
+```bash
 docker volume create [volume_name]
 ```
 2. manage
- ```
+```bash
 docker volume list
 docker colume inspect [volume_name]
 ```
 
 3. mount
-```
+```bash
 # for mounting docker volume 
 docker run -v [volume_name]:[path_in_container] [docker_image]
 
@@ -149,7 +177,7 @@ docker run -v "[host_directry]":[volume_name] [docker_image]
 ```
 
 4. remove
-```
+```bash
 docker volume rm [volume_name]
 
 docker volume prune   # to remove all unused volumes
@@ -161,28 +189,28 @@ Docker Networks
 =====
 
 1. Creating network
-```
+```bash
 docker network create [network_name]
 ```
 
 2. Connect
-```
+```bash
 docker network connect [network_name] [container_name]
 ```
 
 3. Disconnect
-```
+```bash
 docker network disconect [network_name] [container_name]
 ```
 2. List & Inspect
-```
+```bash
 docker network ls
 
 docker inspect [network_name]
 ```
 
 3. Delete network
-```
+```bash
 docker network rm [network_name]
 
 doceker network prune    #delete all unused network
@@ -210,21 +238,58 @@ doceker network prune    #delete all unused network
 It's the default one no need for any flags.
 
 ### User-Defined Bridge Network
-```
+```bash
 docker network create [network_name]
 docker run --network [network_name] [container_id] [image_name]
 ```
 
 ### Host network
-```
+```bash
 docker run --network host [container_id] [image_name]
 ```
 
 ### None
-```
+```bash
 docker run --network none [container_id] [image_name]
 ```
 ----
+
+
+## Docker Web-Interface
+### portainer-ce
+
+1. Instalation
+
+Create a docker voume or direct mount to a host directry
+```bash
+docker volume create portainer_data
+```
+
+Run the portainer as a contatiner on the bridge network
+```bash
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:2.21.5
+```
+
+Sample docker-compose
+```yaml
+---
+services:
+  portainer:
+    image: portainer/portainer:latest
+    container_name: portainer
+    environment:
+      - PUID = ${UID}
+      - PGID = ${GID}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA}:/data
+    ports:
+      - 8000:8000
+      # - 9000:9000 #HTTP port
+      - 9443:9443 #HTTPS port
+    restart: always
+
+```
 
 ## Sources
 1. https://docs.docker.com/
